@@ -39,7 +39,6 @@ module.exports = class AuthController {
     }
 
     static async getProducts(req, res) {
-        console.log(req.user)
         try {
             return res.status(200).json(
                 {

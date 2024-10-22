@@ -4,7 +4,7 @@ import HomePage from "../pages/HomePage";
 import Login from "../pages/Login";
 import NotFound from "../components/404";
 import Products from "../pages/Products";
-import User from "../pages/User";
+import Users from "../pages/Users";
 
 export const routes = createBrowserRouter([
   {
@@ -17,7 +17,7 @@ export const routes = createBrowserRouter([
     children: [
       { path: "/", element: <HomePage /> },
       { path: "/produtos", element: <Products /> },
-      { path: "/usuario", element: <User /> },
+      { path: "/usuario", element: <Users /> },
     ],
   },
   { path: "/login", element: <Login /> },

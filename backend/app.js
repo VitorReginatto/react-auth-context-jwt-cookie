@@ -21,8 +21,12 @@ app.use(express.urlencoded({ extended: false }));
 
 // Rotas
 const AuthRoutes = require('./src/routes/AuthRoutes')
+const UsersRoutes = require('./src/routes/UsersRoutes')
+const ProductsRoutes = require('./src/routes/ProductsRoutes')
 
 app.use("/auth", AuthRoutes)
+app.use("/users", UsersRoutes)
+app.use("/products", ProductsRoutes)
 
 app.get("/", (req, res) => {
     res.status(200).send("<h1>API Rodando</h1>");
