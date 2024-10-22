@@ -15,7 +15,9 @@ class AuthService {
         try {
             if (!data.email || !data.password) throw new Error('Informe email/senha')
             const user = {
-                id: 1, firstName: "Vitor", lastName: "Reginatto", email: "vitor_reginatto@hotmail.com", image: "https://avatars.githubusercontent.com/u/33152198?v=4", gender:"male"
+                id: 1, firstName: "Vitor", lastName: "Reginatto", 
+                email: "vitor_reginatto@hotmail.com", 
+                image: "https://avatars.githubusercontent.com/u/33152198?v=4", gender:"male"
             }
             if (!user) throw new Error('Nenhum usuário encontrado com esse e-mail.')
 
@@ -24,13 +26,11 @@ class AuthService {
             const token = jwt.sign(user, process.env.JWT_SECRET_KEY, {
                 expiresIn: "6h",
             });
-
             res.cookie("token", token, {
                 httpOnly: true, // Cookie só pode ser acessado pelo servidor
                 secure: false, // Colocar como true em produção (HTTPS)
                 sameSite: "lax", // Configurações para proteção CSRF
               });
-
             const authResponse = {
                 user: {
                     id: user.id,

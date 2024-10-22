@@ -15,7 +15,7 @@ module.exports = class AuthController {
             if (error.message === 'Email/Senha inválidos!') {
                 return res.status(400).json({ message: error.message });
             }
-            console.log(error);
+
             res.status(500).json({ message: "Erro ao logar", error: error.message });
         }
     }
@@ -39,6 +39,7 @@ module.exports = class AuthController {
     }
 
     static async getProducts(req, res) {
+        console.log(req.user)
         try {
             return res.status(200).json(
                 {
