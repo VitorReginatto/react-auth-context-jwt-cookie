@@ -31,6 +31,8 @@ class AuthService {
                 secure: false, // Colocar como true em produção (HTTPS)
                 sameSite: "lax", // Configurações para proteção CSRF
               });
+
+              //Retornar é necessário?
             const authResponse = {
                 user: {
                     id: user.id,

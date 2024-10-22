@@ -39,8 +39,9 @@ export const AuthProvider = ({ children }) => {
         withCredentials: true, // Permite o envio de cookies
       });
 
-      const token = response.data.token;
-      setToken(token);
+      //const token = response.data.token;
+      //console.log(response.cookie);
+      //setToken(token);
       setIsAuthenticated(true);
       await getUser();
     } catch (error) {
