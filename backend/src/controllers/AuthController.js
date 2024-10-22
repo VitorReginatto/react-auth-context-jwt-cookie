@@ -38,20 +38,6 @@ module.exports = class AuthController {
         res.status(200).json({ message: "Logout realizado com sucesso" });
     }
 
-    static async getProducts(req, res) {
-        try {
-            return res.status(200).json(
-                {
-                    id: 1,
-                    name: "Bobina"
-
-                })
-        } catch (error) {
-            console.log(error)
-            return res.status(404).json({ message: "erro" });
-        }
-
-    }
 
 
 }; 

@@ -14,64 +14,67 @@ export const AuthProvider = ({ children }) => {
 
   const getUser = async () => {
     try {
-      const response = await api.get("/auth/getAuthenticatedUser",{
-        withCredentials: true, 
-
+      const response = await api.get("/auth/getAuthenticatedUser", {
+        withCredentials: true, // Inclui os cookies na requisição
       });
 
-      if (response.status !== 200) {
+      if (response.status === 200) {
+        setIsAuthenticated(true);
+        setUser(response.data);
+      } else {
         throw new Error("Not authorized");
       }
-
-      setIsAuthenticated(true);
-      setUser(response.data);
     } catch (error) {
       console.error("Erro ao autenticar usuário:", error);
       setIsAuthenticated(false);
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
 
-  async function login(data) {
-    try {
-      const response = await api.post("/auth/signin", data,{
-        withCredentials: true, // Permite o envio de cookies
-      });
+async function login(data) {
 
-      //const token = response.data.token;
-      //console.log(response.cookie);
-      //setToken(token);
+  try {
+    const response = await api.post("/auth/signin", data, {
+      withCredentials: true,
+    });
+
+    if (response.status === 200) {
       setIsAuthenticated(true);
       await getUser();
-    } catch (error) {
-      setErrors(error.message);
+    } else {
+      throw new Error("Login failed");
     }
+  } catch (error) {
+    console.error("Erro ao fazer login:", error);
+    setErrors(error.message);
+    setIsAuthenticated(false);
   }
+}
 
-  async function logout() {
-      try {
-        await api.post("/auth/logout", {}, {
-          withCredentials: true 
-        });
-        setUser(null);
-        setIsAuthenticated(false);
-        return <Navigate to="/login" />;
-      } catch (error) {
-        console.error("Erro ao fazer logout:", error);
-        setErrors(error.message);      
-      }
+async function logout() {
+  try {
+    await api.post("/auth/logout", {}, {
+      withCredentials: true
+    });
+    setUser(null);
+    setIsAuthenticated(false);
+    return <Navigate to="/login" />;
+  } catch (error) {
+    console.error("Erro ao fazer logout:", error);
+    setErrors(error.message);
   }
+}
 
-  useEffect(() => {
-    getUser();
-  }, []);
+useEffect(() => {
+  getUser();
+}, []);
 
-  return (
-    <AuthContext.Provider
-      value={{ user, login, token, errors, loading, isAuthenticated, logout, getUser }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
+return (
+  <AuthContext.Provider
+    value={{ user, login, token, errors, loading, isAuthenticated, logout, getUser }}
+  >
+    {children}
+  </AuthContext.Provider>
+);
 };

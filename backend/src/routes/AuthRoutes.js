@@ -12,6 +12,6 @@ const { verifyToken } = require("../middlewares/AuthMiddleware");
 router.post("/signin", AuthController.signin)
 router.get("/getAuthenticatedUser", AuthController.getAuthenticatedUser)
 router.post("/logout", AuthController.logout)
-router.get("/getProducts", verifyToken, AuthController.getProducts)
+
 
 module.exports = router

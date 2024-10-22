@@ -27,9 +27,8 @@ const Products = () => {
 
   async function handleProducts() {
     setUsers([])
-    console.log("handleUser")
     try {
-      const response = await api.get("/users/getAllProducts", { withCredentials: true });
+      const response = await api.get("/products/getAllProducts", { withCredentials: true });
       setProducts(response.data);
     } catch (error) {
       console.error("Error fetching products", error);
