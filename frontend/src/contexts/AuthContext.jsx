@@ -38,7 +38,6 @@ async function login(data) {
     const response = await api.post("/auth/signin", data, {
       withCredentials: true,
     });
-
     if (response.status === 200) {
       setIsAuthenticated(true);
       await getUser();
